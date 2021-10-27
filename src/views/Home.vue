@@ -1,5 +1,8 @@
 <template>
-  <a-layout id="components-layout-demo-responsive">
+  <a-layout
+    id="components-layout-demo-responsive"
+    :style="{ minHeight: '100vh' }"
+  >
     <a-layout-sider
       breakpoint="lg"
       collapsed-width="0"
@@ -22,11 +25,11 @@
       </a-menu>
     </a-layout-sider>
     <a-layout>
-      <!-- <a-layout-header :style="{ background: '#fff', padding: 0 }" /> -->
+      <a-layout-header :style="{ padding: '0px 24px' }">
+        <h1 :style="{ textAlign: 'left', color: '#fff' }">Auto Report</h1>
+      </a-layout-header>
       <a-layout-content :style="{ margin: '12x 12px 0' }">
-        <div
-          :style="{ padding: '12px', background: '#fff', minHeight: '360px' }"
-        >
+        <div id="body" :style="{ padding: '24px', background: '#fff' }">
           <Dashboard />
         </div>
       </a-layout-content>
@@ -76,5 +79,9 @@ export default {
   height: 32px;
   background: rgba(255, 255, 255, 0.2);
   margin: 16px;
+}
+#body {
+  text-align: left;
+  justify-content: left;
 }
 </style>

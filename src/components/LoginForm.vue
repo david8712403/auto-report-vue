@@ -1,37 +1,39 @@
 <template>
-  <a-card title="Auto Report Login" :bordered="true">
-    <div>
-      <a-form :model="formState" @submit="onSubmit">
-        <a-form-item>
-          <a-input v-model:value="data.account" placeholder="Account">
-            <template #prefix
-              ><UserOutlined style="color: rgba(0, 0, 0, 0.25)"
-            /></template>
-          </a-input>
-        </a-form-item>
-        <a-form-item>
-          <a-input
-            v-model:value="data.password"
-            type="password"
-            placeholder="Password"
+  <a-spin :spinning="loading">
+    <a-card title="Auto Report Login" :bordered="true">
+      <div>
+        <a-form :model="formState" @submit="onSubmit">
+          <a-form-item>
+            <a-input v-model:value="data.account" placeholder="Account">
+              <template #prefix
+                ><UserOutlined style="color: rgba(0, 0, 0, 0.25)"
+              /></template>
+            </a-input>
+          </a-form-item>
+          <a-form-item>
+            <a-input
+              v-model:value="data.password"
+              type="password"
+              placeholder="Password"
+            >
+              <template #prefix>
+                <LockOutlined style="color: rgba(0, 0, 0, 0.25)" />
+              </template>
+            </a-input>
+          </a-form-item>
+          <div>{{ errorMessage }}</div>
+          <br />
+          <a-button
+            type="primary"
+            html-type="submit"
+            :disabled="data.account === '' || data.password === '' || loading"
           >
-            <template #prefix>
-              <LockOutlined style="color: rgba(0, 0, 0, 0.25)" />
-            </template>
-          </a-input>
-        </a-form-item>
-        <div>{{ errorMessage }}</div>
-        <br />
-        <a-button
-          type="primary"
-          html-type="submit"
-          :disabled="data.account === '' || data.password === '' || loading"
-        >
-          Log in
-        </a-button>
-      </a-form>
-    </div>
-  </a-card>
+            Log in
+          </a-button>
+        </a-form>
+      </div>
+    </a-card>
+  </a-spin>
 </template>
 
 <script>

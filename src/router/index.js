@@ -12,7 +12,7 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
-    meta: { requireAuth: true }
+    meta: { requireAuth: true },
   },
 
   {
@@ -32,17 +32,14 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const token = localStorage.getItem('refreshToken')
-  const isLogin = (token !== null && token !== "");
-  if (to.path === '/login') {
-    if (isLogin)
-      next('/');
-  }
-  else if (to.path !== '/login') {
-    if (!isLogin)
-      next('/login');
+  const token = localStorage.getItem("refreshToken");
+  const isLogin = token !== null && token !== "";
+  if (to.path === "/login") {
+    if (isLogin) next("/");
+  } else if (to.path !== "/login") {
+    if (!isLogin) next("/login");
   }
   next();
-})
+});
 
 export default router;
