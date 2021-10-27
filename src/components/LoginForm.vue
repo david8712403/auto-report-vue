@@ -61,13 +61,11 @@ export default {
       axios
         .post("/auth/login", this.data)
         .then((res) => {
+          const { refreshToken, accessToken } = res.data;
           this.loading = false;
-          localStorage.setItem("accessToken", res.data.accessToken);
-          localStorage.setItem("refreshToken", res.data.refreshToken);
-          if (
-            localStorage.getItem("accessToken") &&
-            localStorage.getItem("refreshToken")
-          ) {
+          localStorage.setItem("accessToken", accessToken);
+          localStorage.setItem("refreshToken", refreshToken);
+          if (accessToken && refreshToken) {
             this.$router.push("/");
           }
         })
