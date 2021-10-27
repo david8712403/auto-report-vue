@@ -4,15 +4,17 @@ import Login from "../views/Login.vue";
 
 const routes = [
   {
-    path: "/",
-    name: "Home",
-    component: Home,
-  },
-  {
     path: "/login",
     name: "Login",
     component: Login,
   },
+  {
+    path: "/",
+    name: "Home",
+    component: Home,
+    meta: { requireAuth: true }
+  },
+
   {
     path: "/about",
     name: "About",
@@ -28,5 +30,19 @@ const router = createRouter({
   history: createWebHashHistory(),
   routes,
 });
+
+router.beforeEach((to, from, next) => {
+  const token = localStorage.getItem('refreshToken')
+  const isLogin = (token !== null && token !== "");
+  if (to.path === '/login') {
+    if (isLogin)
+      next('/');
+  }
+  else if (to.path !== '/login') {
+    if (!isLogin)
+      next('/login');
+  }
+  next();
+})
 
 export default router;

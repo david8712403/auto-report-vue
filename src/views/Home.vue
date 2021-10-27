@@ -16,13 +16,18 @@
           <a-icon type="video-camera" />
           <span class="nav-text">Daily Report</span>
         </a-menu-item>
+        <a-button v-on:click="onLogoutClicked" type="primary">
+          Logout
+        </a-button>
       </a-menu>
     </a-layout-sider>
     <a-layout>
       <!-- <a-layout-header :style="{ background: '#fff', padding: 0 }" /> -->
       <a-layout-content :style="{ margin: '12x 12px 0' }">
-        <div :style="{ padding: '12px', background: '#fff', minHeight: '360px' }">
-          Content
+        <div
+          :style="{ padding: '12px', background: '#fff', minHeight: '360px' }"
+        >
+          <Dashboard />
         </div>
       </a-layout-content>
       <a-layout-footer style="textalign: center">
@@ -38,15 +43,29 @@
     </a-layout>
   </a-layout>
 </template>
+
 <script>
+import Dashboard from "../components/Dashboard.vue";
+import axios from "axios";
 export default {
   name: "Home",
+  components: {
+    Dashboard,
+  },
   methods: {
     onCollapse(collapsed, type) {
       console.log(collapsed, type);
     },
     onBreakpoint(broken) {
       console.log(broken);
+    },
+    async onLogoutClicked() {
+      const refreshToken = localStorage.getItem("refreshToken");
+      const res = await axios.post("/auth/logout", { token: refreshToken });
+      if (res.status === 200) {
+        localStorage.clear();
+        this.$router.push("/login");
+      }
     },
   },
 };

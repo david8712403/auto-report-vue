@@ -57,14 +57,19 @@ export default {
 
   methods: {
     onSubmit() {
-      console.log(this.data);
       this.loading = true;
       axios
         .post("/auth/login", this.data)
         .then((res) => {
-          console.log(res);
           this.loading = false;
-          // TODO: 頁面跳轉，儲存refreshToken, accessToken
+          localStorage.setItem("accessToken", res.data.accessToken);
+          localStorage.setItem("refreshToken", res.data.refreshToken);
+          if (
+            localStorage.getItem("accessToken") &&
+            localStorage.getItem("refreshToken")
+          ) {
+            this.$router.push("/");
+          }
         })
         .catch((err) => {
           this.errorMessage = err.response.data.error;
