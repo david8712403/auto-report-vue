@@ -7,36 +7,33 @@
       @breakpoint="onBreakpoint"
     >
       <div class="logo" />
-      <a-menu theme="dark" mode="inline" :default-selected-keys="['4']">
-        <a-menu-item key="1">
+      <a-menu theme="dark" mode="inline" :default-selected-keys="['dashboard']">
+        <a-menu-item key="dashboard">
           <a-icon type="user" />
-          <span class="nav-text">nav 1</span>
+          <span class="nav-text">Dashboard</span>
         </a-menu-item>
-        <a-menu-item key="2">
+        <a-menu-item key="daily_report">
           <a-icon type="video-camera" />
-          <span class="nav-text">nav 2</span>
-        </a-menu-item>
-        <a-menu-item key="3">
-          <a-icon type="upload" />
-          <span class="nav-text">nav 3</span>
-        </a-menu-item>
-        <a-menu-item key="4">
-          <a-icon type="user" />
-          <span class="nav-text">nav 4</span>
+          <span class="nav-text">Daily Report</span>
         </a-menu-item>
       </a-menu>
     </a-layout-sider>
     <a-layout>
-      <a-layout-header :style="{ background: '#fff', padding: 0 }" />
-      <a-layout-content :style="{ margin: '24px 16px 0' }">
-        <div
-          :style="{ padding: '24px', background: '#fff', minHeight: '360px' }"
-        >
-          content
+      <!-- <a-layout-header :style="{ background: '#fff', padding: 0 }" /> -->
+      <a-layout-content :style="{ margin: '12x 12px 0' }">
+        <div :style="{ padding: '12px', background: '#fff', minHeight: '360px' }">
+          Content
         </div>
       </a-layout-content>
       <a-layout-footer style="textalign: center">
-        Ant Design ©2018 Created by Ant UED
+        <div>Auto Report ©2021 Created by David Chen</div>
+        <div>
+          有任何關於功能的建議或問題，歡迎透過
+          <a href="https://github.com/david8712403/auto-report-vue"
+            >GitHub issue</a
+          >
+          回報
+        </div>
       </a-layout-footer>
     </a-layout>
   </a-layout>
