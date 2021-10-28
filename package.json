@@ -9,6 +9,7 @@
     "prod": "vue-cli-service serve --mode production"
   },
   "dependencies": {
+    "@ant-design/icons-vue": "^6.0.1",
     "ant-design-vue": "^2.2.8",
     "axios": "^0.24.0",
     "core-js": "^3.6.5",

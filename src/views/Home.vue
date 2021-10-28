@@ -12,11 +12,11 @@
       <div class="logo" />
       <a-menu theme="dark" mode="inline" :default-selected-keys="['dashboard']">
         <a-menu-item key="dashboard">
-          <a-icon type="user" />
+          <DashboardOutlined />
           <span class="nav-text">Dashboard</span>
         </a-menu-item>
         <a-menu-item key="daily_report">
-          <a-icon type="video-camera" />
+          <DatabaseOutlined />
           <span class="nav-text">Daily Report</span>
         </a-menu-item>
         <a-button v-on:click="onLogoutClicked" type="primary">
@@ -33,7 +33,7 @@
           <Dashboard />
         </div>
       </a-layout-content>
-      <a-layout-footer style="textalign: center">
+      <a-layout-footer :style="{ textAlign: 'center' }">
         <div>Auto Report ©2021 Created by David Chen</div>
         <div>
           有任何關於功能的建議或問題，歡迎透過
@@ -49,11 +49,14 @@
 
 <script>
 import Dashboard from "../components/Dashboard.vue";
+import { DashboardOutlined, DatabaseOutlined } from "@ant-design/icons-vue";
 import axios from "axios";
 export default {
   name: "Home",
   components: {
     Dashboard,
+    DashboardOutlined,
+    DatabaseOutlined,
   },
   methods: {
     onCollapse(collapsed, type) {

@@ -2,7 +2,7 @@
   <h2>Dashboard</h2>
   <a-date-picker :default-value="defDate" @change="onDateChange" />
   <a-table
-    :style="{ whiteSpace: 'pre' }"
+    :style="{ whiteSpace: 'pre', width: '100%' }"
     :columns="columns"
     :loading="loading"
     :data-source="data"
@@ -39,7 +39,7 @@ const columns = [
     dataIndex: "created",
     customRender: (datetime) => {
       if (datetime.text)
-        return moment(String(datetime.text)).format("YYYY/MM/DD HH:mm");
+        return moment(String(datetime.text)).format("YYYY-MM-DD HH:mm");
       else return "-";
     },
   },
@@ -49,7 +49,7 @@ const columns = [
     dataIndex: "updated",
     customRender: (datetime) => {
       if (datetime.text)
-        return moment(String(datetime.text)).format("YYYY/MM/DD HH:mm");
+        return moment(String(datetime.text)).format("YYYY-MM-DD HH:mm");
       else return "-";
     },
   },
