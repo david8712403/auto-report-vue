@@ -26,6 +26,8 @@ axios.interceptors.response.use(
         console.log("get token success");
         localStorage.setItem("accessToken", accessToken);
       });
+    } else {
+      alert(error.response.data.error);
     }
     return Promise.reject(error);
   }

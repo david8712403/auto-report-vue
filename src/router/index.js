@@ -13,6 +13,29 @@ const routes = [
     name: "Home",
     component: Home,
     meta: { requireAuth: true },
+    children: [
+      {
+        path: "/dashboard",
+        name: "dashboard",
+        component: () => import("../components/Dashboard.vue"),
+        exact: true,
+      },
+      {
+        path: "/daily_report",
+        name: "daily_report",
+        component: () => import("../components/DailyReport.vue"),
+        exact: true,
+      },
+      {
+        path: "/daily_report/new_report",
+        name: "new_report",
+        component: () => import("../components/AddDailyReport.vue"),
+        props: {
+          action: "create",
+        },
+        exact: true,
+      },
+    ],
   },
 
   {

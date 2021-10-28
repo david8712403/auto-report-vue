@@ -1,18 +1,18 @@
 module.exports = {
   devServer: {
     proxy: {
-      '^/api': {
+      "^/api": {
         target: process.env.VUE_APP_HOST,
         changeOrigin: true,
-        logLevel: 'debug',
-        pathRewrite: { '^/api': '' }
+        logLevel: "debug",
+        pathRewrite: { "^/api": "" },
       },
-      '^/auth': {
+      "^/auth": {
         target: process.env.VUE_APP_AUTH_HOST,
         changeOrigin: true,
-        logLevel: 'debug',
-        pathRewrite: { '^/auth': '' }
-      }
-    }
-  }
-}
+        logLevel: "debug",
+        pathRewrite: { "^/auth": "" },
+      },
+    },
+  },
+};
