@@ -37,7 +37,8 @@
 </template>
 
 <script>
-import axios from "axios";
+// import axios from "axios";
+import { mapActions, mapGetters } from "vuex";
 import { UserOutlined, LockOutlined } from "@ant-design/icons-vue";
 export default {
   name: "LoginForm",
@@ -58,23 +59,13 @@ export default {
   },
 
   methods: {
-    onSubmit() {
+    ...mapActions(["login"]),
+    ...mapGetters(["cache"]),
+    async onSubmit() {
       this.loading = true;
-      axios
-        .post("/auth/login", this.data)
-        .then((res) => {
-          const { refreshToken, accessToken } = res.data;
-          this.loading = false;
-          localStorage.setItem("accessToken", accessToken);
-          localStorage.setItem("refreshToken", refreshToken);
-          if (accessToken && refreshToken) {
-            this.$router.push("/");
-          }
-        })
-        .catch((err) => {
-          this.errorMessage = err.response.data.error;
-          this.loading = false;
-        });
+      this.login(this.data)
+        .then(() => this.$router.push("/"))
+        .finally(() => (this.loading = false));
     },
   },
 };

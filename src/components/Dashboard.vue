@@ -15,8 +15,8 @@
   </a-table>
 </template>
 <script>
-import axios from "axios";
 import moment from "moment";
+import { mapGetters, mapActions } from "vuex";
 const columns = [
   {
     title: "Name",
@@ -65,19 +65,16 @@ export default {
     };
   },
   methods: {
+    ...mapActions(["fetchReportList"]),
+    ...mapGetters(["getReportList"]),
     async onDateChange(date) {
       this.loading = true;
       const query = date && {
         startDate: date.format("YYYY-MM-DD"),
         endDate: date.format("YYYY-MM-DD"),
       };
-      const res = await axios.get("/api/daily_report", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-        params: query,
-      });
-      this.data = res.data.results;
+      await this.fetchReportList(query);
+      this.data = this.getReportList();
       this.loading = false;
     },
   },

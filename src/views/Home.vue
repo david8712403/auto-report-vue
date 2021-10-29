@@ -50,7 +50,7 @@
 <script>
 import Dashboard from "../components/Dashboard.vue";
 import { DashboardOutlined, DatabaseOutlined } from "@ant-design/icons-vue";
-import axios from "axios";
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "Home",
   components: {
@@ -59,6 +59,8 @@ export default {
     DatabaseOutlined,
   },
   methods: {
+    ...mapGetters(["cache"]),
+    ...mapActions(["logout"]),
     onCollapse(collapsed, type) {
       console.log(collapsed, type);
     },
@@ -66,12 +68,8 @@ export default {
       console.log(broken);
     },
     async onLogoutClicked() {
-      const refreshToken = localStorage.getItem("refreshToken");
-      const res = await axios.post("/auth/logout", { token: refreshToken });
-      if (res.status === 200) {
-        localStorage.clear();
-        this.$router.push("/login");
-      }
+      await this.logout({ token: this.cache().refreshToken });
+      this.$router.push("/login");
     },
   },
 };

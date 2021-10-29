@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory } from "vue-router";
+import store from "../store/index";
 import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
 
@@ -32,12 +33,18 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const token = localStorage.getItem("refreshToken");
-  const isLogin = token !== null && token !== "";
+  const { refreshToken } = store.getters.cache;
+  const isLogin = refreshToken !== undefined;
   if (to.path === "/login") {
-    if (isLogin) next("/");
+    if (isLogin) {
+      next("/");
+      return;
+    }
   } else if (to.path !== "/login") {
-    if (!isLogin) next("/login");
+    if (!isLogin) {
+      next("/login");
+      return;
+    }
   }
   next();
 });
