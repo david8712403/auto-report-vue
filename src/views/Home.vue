@@ -10,7 +10,12 @@
       @breakpoint="onBreakpoint"
     >
       <div class="logo" />
-      <a-menu theme="dark" mode="inline" :default-selected-keys="['dashboard']">
+      <a-menu
+        theme="dark"
+        mode="inline"
+        @select="onItemSelect"
+        :default-selected-keys="['dashboard']"
+      >
         <a-menu-item key="dashboard">
           <DashboardOutlined />
           <span class="nav-text">Dashboard</span>
@@ -30,7 +35,7 @@
       </a-layout-header>
       <a-layout-content :style="{ margin: '12x 12px 0' }">
         <div id="body" :style="{ padding: '24px', background: '#fff' }">
-          <Dashboard />
+          <router-view />
         </div>
       </a-layout-content>
       <a-layout-footer :style="{ textAlign: 'center' }">
@@ -48,13 +53,11 @@
 </template>
 
 <script>
-import Dashboard from "../components/Dashboard.vue";
 import { DashboardOutlined, DatabaseOutlined } from "@ant-design/icons-vue";
 import { mapGetters, mapActions } from "vuex";
 export default {
   name: "Home",
   components: {
-    Dashboard,
     DashboardOutlined,
     DatabaseOutlined,
   },
@@ -66,6 +69,10 @@ export default {
     },
     onBreakpoint(broken) {
       console.log(broken);
+    },
+    onItemSelect(e) {
+      const route = e.key;
+      if (this.$route.path !== route) this.$router.push(`/${route}`);
     },
     async onLogoutClicked() {
       await this.logout({ token: this.cache().refreshToken });
