@@ -40,7 +40,7 @@
 </template>
 <script>
 import { reactive, ref } from "vue";
-import axios from "axios";
+import { mapActions } from "vuex";
 import moment from "moment";
 export default {
   name: "AddDailyReport",
@@ -65,12 +65,8 @@ export default {
     };
 
     return {
-      labelCol: {
-        span: 4,
-      },
-      wrapperCol: {
-        span: 14,
-      },
+      labelCol: { span: 4 },
+      wrapperCol: { span: 14 },
       formRef,
       formState,
       rules,
@@ -81,25 +77,19 @@ export default {
     };
   },
   methods: {
+    ...mapActions(["createReport"]),
     onSubmit() {
       this.loading = true;
       this.$refs.formRef
         .validate()
         .then(async () => {
-          console.log("values", this.formState);
-          const res = await axios({
+          await this.createReport({
             method: "put",
-            url: "/api/daily_report",
             data: {
               content: this.formState.content,
               date: this.formState.date.format("YYYY-MM-DD"),
             },
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-              "Content-Type": "application/json",
-            },
           });
-          console.log(res);
           this.$router.push("/daily_report");
         })
         .catch((error) => console.log("error", error))

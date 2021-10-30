@@ -2,7 +2,7 @@
   <h2>Daily Report</h2>
   <a-space>
     <a-date-picker :default-value="defDate" @change="onDateChange" />
-    <a-button @click="onAddReportClick" type="primary"
+    <a-button @click="$router.push('/daily_report/new_report')" type="primary"
       >Add Daily Report</a-button
     >
   </a-space>
