@@ -11,11 +11,11 @@
     <template #title>
       <strong>Summary</strong>
     </template>
-    <template #action="{ record }">
+    <!-- <template #action="{ record }">
       <template v-if="userCache.id === record.userId">
         <a-button style="margin-bottom: 10px" type="primary">Notify</a-button>
       </template>
-    </template>
+    </template> -->
   </a-table>
 </template>
 <script>
