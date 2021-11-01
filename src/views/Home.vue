@@ -3,13 +3,21 @@
     id="components-layout-demo-responsive"
     :style="{ minHeight: '100vh' }"
   >
-    <a-layout-sider
-      breakpoint="lg"
-      collapsed-width="0"
-      @collapse="onCollapse"
-      @breakpoint="onBreakpoint"
-    >
-      <div class="logo" />
+    <a-layout-sider :collapsed="collapsed" :trigger="null" collapsible>
+      <div :style="{ textAlign: 'right', padding: '20px' }">
+        <menu-unfold-outlined
+          style="color: #fff"
+          v-if="collapsed"
+          class="trigger"
+          @click="() => (collapsed = !collapsed)"
+        />
+        <menu-fold-outlined
+          style="color: #fff"
+          v-else
+          class="trigger"
+          @click="() => (collapsed = !collapsed)"
+        />
+      </div>
       <a-menu
         theme="dark"
         mode="inline"
@@ -66,6 +74,8 @@ import {
   DatabaseOutlined,
   LogoutOutlined,
   SettingOutlined,
+  MenuUnfoldOutlined,
+  MenuFoldOutlined,
 } from "@ant-design/icons-vue";
 import { mapGetters, mapActions } from "vuex";
 export default {
@@ -75,6 +85,14 @@ export default {
     DatabaseOutlined,
     LogoutOutlined,
     SettingOutlined,
+    MenuUnfoldOutlined,
+    MenuFoldOutlined,
+  },
+  data() {
+    let collapsed = false;
+    return {
+      collapsed,
+    };
   },
   methods: {
     ...mapGetters(["cache"]),
@@ -98,6 +116,16 @@ export default {
 </script>
 
 <style>
+#components-layout-demo-custom-trigger .trigger {
+  font-size: 18px;
+  line-height: 64px;
+  padding: 0 24px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+#components-layout-demo-custom-trigger .trigger:hover {
+  color: #1890ff;
+}
 #components-layout-demo-responsive .logo {
   height: 32px;
   background: rgba(255, 255, 255, 0.2);
