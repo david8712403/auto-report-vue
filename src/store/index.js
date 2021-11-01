@@ -4,7 +4,7 @@ import axios from "axios";
 const user = {
   state: {
     cache: {},
-    header: {}
+    header: {},
   },
   mutations: {
     updateCache(state, cache) {
@@ -14,11 +14,11 @@ const user = {
         state.header = {
           Authorization: `Bearer ${cache.accessToken}`,
           "Content-Type": "application/json",
-        }
+        };
         localStorage.setItem("userCache", JSON.stringify(state.cache));
       } else {
         state.cache = {};
-        state.header = {}
+        state.header = {};
         localStorage.clear();
       }
     },
@@ -29,9 +29,10 @@ const user = {
       state.header = {
         Authorization: `Bearer ${state.cache.accessToken}`,
         "Content-Type": "application/json",
-      }
+      };
       return state.cache;
     },
+    header: (state) => state.header
   },
 
   actions: {
@@ -72,16 +73,6 @@ const dailyReport = {
       });
       commit("setReportList", res.data.results);
     },
-    async createReport({ commit }, payload) {
-      const { method, data } = payload;
-      await axios({
-        url: "/api/daily_report",
-        method: method,
-        headers: user.state.header,
-        data: data
-      })
-      commit('')
-    }
   },
 };
 

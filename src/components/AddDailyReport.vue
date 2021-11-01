@@ -11,8 +11,7 @@
       <a-form-item label="Date" required name="date">
         <a-date-picker
           v-model:value="formState.date"
-          :default-value="defDate"
-          :disabled="originData"
+          :disabled="date !== undefined"
           type="date"
           placeholder="Pick a date"
           style="width: 100%"
@@ -32,7 +31,7 @@
           style="margin-left: 10px"
           :disabled="!formState.date"
           @click="onSubmit"
-          >{{ reportAction }}</a-button
+          >save</a-button
         >
       </a-form-item>
     </a-form>
@@ -40,19 +39,22 @@
 </template>
 <script>
 import { reactive, ref } from "vue";
-import { mapActions } from "vuex";
+import { mapGetters } from "vuex";
 import moment from "moment";
+import axios from "axios";
 export default {
   name: "AddDailyReport",
-  props: ["action", "origin-data"],
+  props: { date: String, content: String },
   data() {
     const formRef = ref();
     const formState = reactive({
-      content: "",
-      date: "",
+      content: this.content ?? "",
+      date:
+        this.date === undefined
+          ? moment(new Date(), "YYYY-MM-DD")
+          : moment(this.date),
     });
-    formState.content =
-      this["origin-data"] === undefined ? "" : this["origin-data"].content;
+    const isNewReport = this.content === undefined && this.date === undefined;
     const rules = {
       date: [
         {
@@ -71,20 +73,21 @@ export default {
       formState,
       rules,
       reportAction: this.action,
-      defDate: moment(new Date(), "YYYY-MM-DD"),
-      originData: this["origin-data"],
       loading: false,
+      isNewReport,
     };
   },
   methods: {
-    ...mapActions(["createReport"]),
+    ...mapGetters(['header']),
     onSubmit() {
       this.loading = true;
       this.$refs.formRef
         .validate()
         .then(async () => {
-          await this.createReport({
-            method: "put",
+          await axios({
+            url: "/api/daily_report",
+            method: this.isNewReport ? "put" : "patch",
+            headers: this.header(),
             data: {
               content: this.formState.content,
               date: this.formState.date.format("YYYY-MM-DD"),

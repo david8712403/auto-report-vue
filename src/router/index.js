@@ -31,9 +31,7 @@ const routes = [
         path: "/daily_report/new_report",
         name: "new_report",
         component: () => import("../components/AddDailyReport.vue"),
-        props: {
-          action: "create",
-        },
+        props: true,
         exact: true,
       },
     ],
