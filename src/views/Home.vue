@@ -16,17 +16,25 @@
         @select="onItemSelect"
         :default-selected-keys="['dashboard']"
       >
-        <a-menu-item key="dashboard">
-          <DashboardOutlined />
-          <span class="nav-text">Dashboard</span>
-        </a-menu-item>
-        <a-menu-item key="daily_report">
-          <DatabaseOutlined />
-          <span class="nav-text">Daily Report</span>
-        </a-menu-item>
-        <a-button v-on:click="onLogoutClicked" type="primary">
-          Logout
-        </a-button>
+        <div>
+          <a-menu-item key="dashboard">
+            <DashboardOutlined />
+            <span class="nav-text">Dashboard</span>
+          </a-menu-item>
+          <a-menu-item key="daily_report">
+            <DatabaseOutlined />
+            <span class="nav-text">Daily Report</span>
+          </a-menu-item>
+          <a-menu-item key="setting">
+            <SettingOutlined />
+            <span class="nav-text">Setting</span>
+          </a-menu-item>
+          <a-divider />
+          <a-menu-item @click="onLogoutClicked">
+            <LogoutOutlined />
+            <span class="nav-text">Logout</span>
+          </a-menu-item>
+        </div>
       </a-menu>
     </a-layout-sider>
     <a-layout>
@@ -53,13 +61,20 @@
 </template>
 
 <script>
-import { DashboardOutlined, DatabaseOutlined } from "@ant-design/icons-vue";
+import {
+  DashboardOutlined,
+  DatabaseOutlined,
+  LogoutOutlined,
+  SettingOutlined,
+} from "@ant-design/icons-vue";
 import { mapGetters, mapActions } from "vuex";
 export default {
   name: "Home",
   components: {
     DashboardOutlined,
     DatabaseOutlined,
+    LogoutOutlined,
+    SettingOutlined,
   },
   methods: {
     ...mapGetters(["cache"]),

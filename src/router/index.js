@@ -28,6 +28,12 @@ const routes = [
         exact: true,
       },
       {
+        path: "/setting",
+        name: "setting",
+        component: () => import("../components/Setting.vue"),
+        exact: true,
+      },
+      {
         path: "/daily_report/new_report",
         name: "new_report",
         component: () => import("../components/AddDailyReport.vue"),
@@ -58,13 +64,15 @@ router.beforeEach((to, from, next) => {
   const isLogin = refreshToken !== undefined;
   if (to.path === "/login") {
     if (isLogin) {
-      next("/");
+      next("/dashboard");
       return;
     }
   } else if (to.path !== "/login") {
     if (!isLogin) {
       next("/login");
       return;
+    } else if (to.path === "/") {
+      next("/dashboard");
     }
   }
   next();

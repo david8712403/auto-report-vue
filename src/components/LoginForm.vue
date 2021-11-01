@@ -64,7 +64,7 @@ export default {
     async onSubmit() {
       this.loading = true;
       this.login(this.data)
-        .then(() => this.$router.push("/"))
+        .then(() => this.$router.push("/dashboard"))
         .finally(() => (this.loading = false));
     },
   },

@@ -1,5 +1,12 @@
 <template>
   <h2>Daily Report</h2>
+  <a-modal
+    v-model:visible="showDialog"
+    title="Warning"
+    @ok="() => onDeleteClicked(this.deleteRecord)"
+  >
+    <p>Sure to delete?</p>
+  </a-modal>
   <a-space>
     <a-date-picker @change="onDateChange" />
     <a-button
@@ -9,7 +16,8 @@
         })
       "
       type="primary"
-      >Add Daily Report</a-button
+    >
+      <PlusCircleOutlined />Add Daily Report</a-button
     >
   </a-space>
   <a-table
@@ -29,7 +37,15 @@
           >Edit</a-button
         >
         <br />
-        <a-button danger type="primary" @click="() => onDeleteClicked(record)"
+        <a-button
+          danger
+          type="primary"
+          @click="
+            () => {
+              showDialog = true;
+              deleteRecord = record;
+            }
+          "
           >Delete</a-button
         >
       </template>
@@ -37,12 +53,16 @@
   </a-table>
 </template>
 <script>
+import { PlusCircleOutlined } from "@ant-design/icons-vue";
 import moment from "moment";
 import { mapActions, mapGetters } from "vuex";
 import axios from "axios";
 
 export default {
   name: "Dashboard",
+  components: {
+    PlusCircleOutlined,
+  },
   data() {
     const columns = [
       {
@@ -90,13 +110,17 @@ export default {
     ];
     let data = [];
     let loading = false;
+    let showDialog = false;
     let currentDate = undefined;
+    let deleteRecord = undefined;
     return {
       userCache: this.cache(),
       data,
       columns,
+      showDialog,
       loading,
       currentDate,
+      deleteRecord,
     };
   },
   methods: {
@@ -128,6 +152,7 @@ export default {
           date: record.date,
         },
       });
+      this.showDialog = false;
       this.onDateChange(this.currentDate);
     },
   },
