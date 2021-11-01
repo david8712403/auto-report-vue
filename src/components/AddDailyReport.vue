@@ -78,7 +78,7 @@ export default {
     };
   },
   methods: {
-    ...mapGetters(['header']),
+    ...mapGetters(["header"]),
     onSubmit() {
       this.loading = true;
       this.$refs.formRef

@@ -32,7 +32,7 @@ const user = {
       };
       return state.cache;
     },
-    header: (state) => state.header
+    header: (state) => state.header,
   },
 
   actions: {
@@ -55,14 +55,19 @@ const user = {
 const dailyReport = {
   state: {
     reportList: [],
+    reportSummary: [],
   },
   mutations: {
     setReportList(state, list) {
       state.reportList = list;
     },
+    setReportSummary(state, list) {
+      state.reportSummary = list;
+    },
   },
   getters: {
     getReportList: (state) => state.reportList,
+    getReportSummary: (state) => state.reportSummary,
   },
 
   actions: {
@@ -72,6 +77,14 @@ const dailyReport = {
         params: query,
       });
       commit("setReportList", res.data.results);
+    },
+
+    async fetchReportSummary({ commit }, query) {
+      const res = await axios.get("/api/daily_report/summary", {
+        headers: user.state.header,
+        params: query,
+      });
+      commit("setReportSummary", res.data.results);
     },
   },
 };
