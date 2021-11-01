@@ -9,7 +9,7 @@
     bordered
   >
     <template #title>
-      <strong>Summary</strong>
+      <strong>Today Summary ({{ today }})</strong>
     </template>
     <!-- <template #action="{ record }">
       <template v-if="userCache.id === record.userId">
@@ -39,11 +39,6 @@ export default {
           if (data.text) return data.text;
           else return "(未更新)";
         },
-      },
-      {
-        title: "Date",
-        dataIndex: "report.date",
-        key: "date",
       },
       {
         title: "Create Time",
@@ -77,6 +72,7 @@ export default {
     let loading = false;
     return {
       userCache: this.cache(),
+      today: moment(new Date()).format("YYYY-MM-DD"),
       data,
       columns,
       loading,
@@ -88,7 +84,7 @@ export default {
     async updateReportSummary() {
       this.loading = true;
       await this.fetchReportSummary({
-        date: moment(new Date()).format("YYYY-MM-DD"),
+        date: this.today,
       });
       this.data = this.getReportSummary();
       this.loading = false;

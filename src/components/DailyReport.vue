@@ -7,53 +7,59 @@
   >
     <p>Sure to delete?</p>
   </a-modal>
-  <a-space>
-    <a-date-picker @change="onDateChange" />
-    <a-button
-      @click="
-        $router.push({
-          name: 'new_report',
-        })
-      "
-      type="primary"
+  <a-space direction="vertical">
+    <a-space>
+      <a-date-picker @change="onDateChange" />
+      <a-button
+        @click="
+          $router.push({
+            name: 'new_report',
+          })
+        "
+        type="primary"
+      >
+        <PlusCircleOutlined />Add Daily Report</a-button
+      >
+    </a-space>
+    <a-table
+      :style="{ whiteSpace: 'pre', width: '100%' }"
+      :columns="columns"
+      :loading="loading"
+      :data-source="data"
+      :rowKey="(record) => record.id"
+      bordered
     >
-      <PlusCircleOutlined />Add Daily Report</a-button
-    >
-  </a-space>
-  <a-table
-    :style="{ whiteSpace: 'pre', width: '100%' }"
-    :columns="columns"
-    :loading="loading"
-    :data-source="data"
-    :rowKey="(record) => record.id"
-    bordered
-  >
-    <template #action="{ record }">
-      <template v-if="userCache.id === record.userId">
-        <a-button
-          @click="() => onEditClicked(record)"
-          style="margin-bottom: 10px"
-          type="primary"
-          >Edit</a-button
-        >
-        <br />
-        <a-button
-          danger
-          type="primary"
-          @click="
-            () => {
-              showDialog = true;
-              deleteRecord = record;
-            }
-          "
-          >Delete</a-button
-        >
+      <template #action="{ record }">
+        <template v-if="userCache.id === record.userId">
+          <a-button
+            @click="() => onEditClicked(record)"
+            style="margin-bottom: 10px"
+            type="primary"
+            ><EditOutlined
+          /></a-button>
+          <br />
+          <a-button
+            danger
+            type="primary"
+            @click="
+              () => {
+                showDialog = true;
+                deleteRecord = record;
+              }
+            "
+            ><DeleteOutlined
+          /></a-button>
+        </template>
       </template>
-    </template>
-  </a-table>
+    </a-table>
+  </a-space>
 </template>
 <script>
-import { PlusCircleOutlined } from "@ant-design/icons-vue";
+import {
+  PlusCircleOutlined,
+  EditOutlined,
+  DeleteOutlined,
+} from "@ant-design/icons-vue";
 import moment from "moment";
 import { mapActions, mapGetters } from "vuex";
 import axios from "axios";
@@ -62,6 +68,8 @@ export default {
   name: "Dashboard",
   components: {
     PlusCircleOutlined,
+    EditOutlined,
+    DeleteOutlined,
   },
   data() {
     const columns = [
