@@ -34,6 +34,12 @@ const routes = [
         exact: true,
       },
       {
+        path: "/change_log",
+        name: "change_log",
+        component: () => import("../components/SystemLog.vue"),
+        exact: true,
+      },
+      {
         path: "/daily_report/new_report",
         name: "new_report",
         component: () => import("../components/AddDailyReport.vue"),

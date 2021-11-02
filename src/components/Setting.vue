@@ -67,8 +67,8 @@ export default {
         })
         .finally(() => {
           this.loading = false;
-          this.formState.oldPassword = ""
-          this.formState.newPassword = ""
+          this.formState.oldPassword = "";
+          this.formState.newPassword = "";
         });
     },
   },
@@ -77,5 +77,4 @@ export default {
   },
 };
 </script>
-<style >
-</style>
+<style></style>
