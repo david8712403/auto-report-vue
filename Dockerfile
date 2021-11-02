@@ -1,15 +1,11 @@
-FROM node:16
-
-RUN mkdir -p /usr/src/app
-
-WORKDIR /usr/src/app
-
-COPY package.json /usr/src/app
-
+FROM node:16 as build-stage
+WORKDIR /app
+COPY package*.json /app
 RUN npm install
+COPY ./ .
+RUN npm run build
 
-COPY . /usr/src/app
-
-EXPOSE 5000
-
-CMD [ "npm", "run", "prod", "--", "--port", "5000"]
+FROM nginx:latest as production-stage
+RUN mkdir /app
+COPY --from=build-stage /app/dist /app
+COPY nginx.conf /etc/nginx/nginx.conf
