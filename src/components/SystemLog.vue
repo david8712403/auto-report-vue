@@ -2,10 +2,10 @@
   <h2>Change Logs</h2>
   <a-list item-layout="horizontal" :data-source="logs">
     <template #renderItem="{ item }">
-      <a-list-item>
+      <a-list-item :style="{ whiteSpace: 'pre', width: '100%' }">
         <a-list-item-meta :description="item.content">
           <template #title>
-            <strong>{{ item.created }} {{ item.title }}</strong>
+            <strong>{{ item.created }}</strong>
           </template>
         </a-list-item-meta>
       </a-list-item>
