@@ -40,6 +40,7 @@
 <script>
 import { reactive, ref } from "vue";
 import { mapGetters } from "vuex";
+import { notification } from "ant-design-vue";
 import moment from "moment";
 import axios from "axios";
 export default {
@@ -93,7 +94,15 @@ export default {
               date: this.formState.date.format("YYYY-MM-DD"),
             },
           });
-          this.$router.push("/daily_report");
+          const isToday =
+            moment(new Date()).format("YYYY-MM-DD") ===
+            this.formState.date.format("YYYY-MM-DD");
+          if (this.isNewReport && isToday)
+            notification["success"]({
+              message: "Success",
+              description: "Your submit today's report successfull!",
+            });
+          this.$router.go(-1);
         })
         .catch((error) => console.log("error", error))
         .finally(() => (this.loading = false));

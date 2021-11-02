@@ -1,24 +1,55 @@
 <template>
   <h2>Dashboard</h2>
-  <a-card>
-    <a-row :gutter="16">
-      <a-col :span="3">
-        <a-statistic title="Submit Progress" :value="submitCount">
-          <template #suffix>
-            <span>/ {{ memberCount }}</span>
-          </template>
-        </a-statistic>
-      </a-col>
-      <a-col :span="6">
-        <a-statistic-countdown
-          title="Deadline for today's report"
-          :value="deadline"
-          style="margin-right: 50px"
-          @finish="onCountDownFinish"
-        />
-      </a-col>
-    </a-row>
-  </a-card>
+  <a-spin :spinning="loading">
+    <a-card>
+      <a-row :gutter="12">
+        <a-col :span="6">
+          <a-statistic
+            title="Your Submit Status"
+            :value="isSubmit ? '🎉 Done' : '👨🏻‍💻 Unfinished'"
+          >
+          </a-statistic>
+          <a-button
+            v-if="isSubmit"
+            @click="
+              $router.push({
+                name: 'new_report',
+                params: {
+                  date: yourReport.report.date,
+                  content: yourReport.report.content,
+                },
+              })
+            "
+            ><EditOutlined />Edit</a-button
+          >
+          <a-button
+            v-if="!isSubmit"
+            type="primary"
+            @click="
+              $router.push({
+                name: 'new_report',
+              })
+            "
+            ><SendOutlined />Submit Now</a-button
+          >
+        </a-col>
+        <a-col :span="6">
+          <a-statistic title="Submit Progress" :value="submitCount">
+            <template #suffix>
+              <span>/ {{ memberCount }}</span>
+            </template>
+          </a-statistic>
+        </a-col>
+        <a-col :span="6">
+          <a-statistic-countdown
+            title="Deadline for today's report"
+            :value="deadline"
+            style="margin-right: 50px"
+          />
+        </a-col>
+      </a-row>
+    </a-card>
+  </a-spin>
   <br />
   <a-table
     :style="{ whiteSpace: 'pre', width: '100%' }"
@@ -43,6 +74,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import moment from "moment";
+import { SendOutlined, EditOutlined } from "@ant-design/icons-vue";
 
 export default {
   name: "Dashboard",
@@ -92,6 +124,7 @@ export default {
     ];
     let data = [];
     let loading = false;
+    let isSubmit = false;
     let memberCount = 0;
     let submitCount = 0;
     let deadline = new Date();
@@ -104,11 +137,17 @@ export default {
       today: moment(new Date()).format("YYYY-MM-DD"),
       data,
       columns,
+      isSubmit,
+      yourReport: undefined,
       loading,
       memberCount,
       submitCount,
       deadline,
     };
+  },
+  components: {
+    SendOutlined,
+    EditOutlined,
   },
   methods: {
     ...mapActions(["fetchReportSummary"]),
@@ -119,6 +158,11 @@ export default {
         date: this.today,
       });
       this.data = this.getReportSummary();
+      this.yourReport = this.data.find(
+        (e) => this.cache().id === e.userId && e.report !== undefined
+      );
+      console.log(this.yourReport);
+      this.isSubmit = this.yourReport && true;
       this.memberCount = this.data.length;
       this.submitCount = this.data.filter((e) => e.report !== undefined).length;
       this.loading = false;
