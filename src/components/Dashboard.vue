@@ -2,8 +2,8 @@
   <h2>Dashboard</h2>
   <a-spin :spinning="loading">
     <a-card>
-      <a-row :gutter="12">
-        <a-col :span="6">
+      <a-row :gutter="8">
+        <a-col :span="8">
           <a-statistic
             title="Your Submit Status"
             :value="isSubmit ? '🎉 Done' : '👨🏻‍💻 Unfinished'"
@@ -33,14 +33,17 @@
             ><SendOutlined />Submit Now</a-button
           >
         </a-col>
-        <a-col :span="6">
+        <a-col :span="8">
           <a-statistic title="Submit Progress" :value="submitCount">
             <template #suffix>
               <span>/ {{ memberCount }}</span>
             </template>
           </a-statistic>
+          <a-button type="primary" @click="() => (showSlackDialog = true)"
+            ><SendOutlined />Notify members</a-button
+          >
         </a-col>
-        <a-col :span="6">
+        <a-col :span="8">
           <a-statistic-countdown
             title="Deadline for today's report"
             :value="deadline"
@@ -51,6 +54,21 @@
     </a-card>
   </a-spin>
   <br />
+  <a-modal
+    title="Send Slack message"
+    :visible="showSlackDialog"
+    :confirm-loading="isMessageSending"
+    @ok="sendSlackNotify"
+    @cancel="() => (showSlackDialog = false)"
+  >
+    <div>將會通知以下成員:</div>
+    <div
+      v-for="value in data.filter((e) => e.report === undefined)"
+      :key="value.id"
+    >
+      - {{ value.userName }}
+    </div>
+  </a-modal>
   <a-table
     :style="{ whiteSpace: 'pre', width: '100%' }"
     :columns="columns"
@@ -75,6 +93,7 @@
 import { mapActions, mapGetters } from "vuex";
 import moment from "moment";
 import { SendOutlined, EditOutlined } from "@ant-design/icons-vue";
+import axios from "axios";
 
 export default {
   name: "Dashboard",
@@ -125,6 +144,8 @@ export default {
     let data = [];
     let loading = false;
     let isSubmit = false;
+    let showSlackDialog = false;
+    let isMessageSending = false;
     let memberCount = 0;
     let submitCount = 0;
     let deadline = new Date();
@@ -143,6 +164,8 @@ export default {
       memberCount,
       submitCount,
       deadline,
+      showSlackDialog,
+      isMessageSending,
     };
   },
   components: {
@@ -151,7 +174,7 @@ export default {
   },
   methods: {
     ...mapActions(["fetchReportSummary"]),
-    ...mapGetters(["getReportSummary", "cache"]),
+    ...mapGetters(["getReportSummary", "cache", "header"]),
     async updateReportSummary() {
       this.loading = true;
       await this.fetchReportSummary({
@@ -166,6 +189,23 @@ export default {
       this.memberCount = this.data.length;
       this.submitCount = this.data.filter((e) => e.report !== undefined).length;
       this.loading = false;
+    },
+    async sendSlackNotify() {
+      const notifyUsers = this.data
+        .filter((e) => e.report === undefined)
+        .map(({ userId }) => userId);
+      this.isMessageSending = true;
+      await axios({
+        url: "/api/addon/slack/remind",
+        method: "post",
+        headers: this.header(),
+        data: {
+          mentions: notifyUsers,
+          message: "提醒{}盡快繳交今日report",
+        },
+      });
+      this.showSlackDialog = false;
+      this.isMessageSending = false;
     },
   },
   created() {
