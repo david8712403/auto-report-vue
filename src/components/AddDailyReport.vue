@@ -1,5 +1,6 @@
 <template>
-  <h2>New Report</h2>
+  <h2 v-if="isNewReport">New Report</h2>
+  <h2 v-if="!isNewReport">Edit Report</h2>
   <a-spin :spinning="loading">
     <a-form
       ref="formRef"
@@ -55,7 +56,7 @@ export default {
           ? moment(new Date(), "YYYY-MM-DD")
           : moment(this.date),
     });
-    const isNewReport = this.content === undefined && this.date === undefined;
+    const isNewReport = this.date === undefined || this.content === undefined;
     const rules = {
       date: [
         {

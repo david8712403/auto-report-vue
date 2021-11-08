@@ -28,6 +28,9 @@
             @click="
               $router.push({
                 name: 'new_report',
+                params: {
+                  date: today,
+                },
               })
             "
             ><SendOutlined />Submit Now</a-button
@@ -176,9 +179,7 @@ export default {
       });
       this.data = this.getReportSummary();
       this.yourReport = this.data.find((e) => this.cache().id === e.userId);
-
-      console.log(this.yourReport);
-      this.isSubmit = this.yourReport && true;
+      this.isSubmit = this.yourReport.id && true;
       this.memberCount = this.data.length;
       this.submitCount = this.data.filter((e) => e.id !== undefined).length;
       this.loading = false;
