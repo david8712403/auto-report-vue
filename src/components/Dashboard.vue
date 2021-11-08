@@ -106,7 +106,7 @@ export default {
       },
       {
         title: "Content",
-        dataIndex: "report.content",
+        dataIndex: "content",
         key: "content",
         customRender: (data) => {
           if (data.text) return data.text;
@@ -116,7 +116,7 @@ export default {
       {
         title: "Create Time",
         key: "created",
-        dataIndex: "report.created",
+        dataIndex: "created",
         customRender: (datetime) => {
           if (datetime.text)
             return moment(String(datetime.text)).format("YYYY-MM-DD HH:mm");
@@ -126,7 +126,7 @@ export default {
       {
         title: "Update Time",
         key: "updated",
-        dataIndex: "report.updated",
+        dataIndex: "updated",
         customRender: (datetime) => {
           if (datetime.text)
             return moment(String(datetime.text)).format("YYYY-MM-DD HH:mm");
@@ -182,7 +182,7 @@ export default {
       });
       this.data = this.getReportSummary();
       this.yourReport = this.data.find(
-        (e) => this.cache().id === e.userId && e.report !== undefined
+        (e) => this.cache().id === e.userId && e.id !== undefined
       );
       console.log(this.yourReport);
       this.isSubmit = this.yourReport && true;
