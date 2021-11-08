@@ -187,7 +187,7 @@ export default {
       console.log(this.yourReport);
       this.isSubmit = this.yourReport && true;
       this.memberCount = this.data.length;
-      this.submitCount = this.data.filter((e) => e.report !== undefined).length;
+      this.submitCount = this.data.filter((e) => e.id !== undefined).length;
       this.loading = false;
     },
     async sendSlackNotify() {
