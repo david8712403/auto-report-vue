@@ -24,29 +24,27 @@
         @select="onItemSelect"
         :default-selected-keys="['dashboard']"
       >
-        <div>
-          <a-menu-item key="dashboard">
-            <DashboardOutlined />
-            <span class="nav-text">Dashboard</span>
-          </a-menu-item>
-          <a-menu-item key="daily_report">
-            <DatabaseOutlined />
-            <span class="nav-text">Daily Report</span>
-          </a-menu-item>
-          <a-menu-item key="setting">
-            <SettingOutlined />
-            <span class="nav-text">Setting</span>
-          </a-menu-item>
-          <a-menu-item key="change_log">
-            <PullRequestOutlined />
-            <span class="nav-text">Change Log</span>
-          </a-menu-item>
-          <a-divider />
-          <a-menu-item @click="onLogoutClicked">
-            <LogoutOutlined />
-            <span class="nav-text">Logout</span>
-          </a-menu-item>
-        </div>
+        <a-menu-item key="dashboard">
+          <DashboardOutlined />
+          <span>Dashboard</span>
+        </a-menu-item>
+        <a-menu-item key="daily_report">
+          <DatabaseOutlined />
+          <span>Daily Report</span>
+        </a-menu-item>
+        <a-menu-item key="setting">
+          <SettingOutlined />
+          <span>Setting</span>
+        </a-menu-item>
+        <a-menu-item key="change_log">
+          <PullRequestOutlined />
+          <span>Change Log</span>
+        </a-menu-item>
+        <a-divider />
+        <a-menu-item @click="onLogoutClicked">
+          <LogoutOutlined />
+          <span>Logout</span>
+        </a-menu-item>
       </a-menu>
     </a-layout-sider>
     <a-layout>
