@@ -65,6 +65,11 @@
           >
           回報
         </div>
+        <strong>
+          Visit count: {{ this.statisticData.visitCount }} | Login count:
+          {{ this.statisticData.loginCount }} | Report count:
+          {{ this.statisticData.reportCount }}
+        </strong>
       </a-layout-footer>
     </a-layout>
   </a-layout>
@@ -94,13 +99,17 @@ export default {
   },
   data() {
     let collapsed = false;
+    let loading = true;
+    let statisticData = {};
     return {
       collapsed,
+      loading,
+      statisticData,
     };
   },
   methods: {
-    ...mapGetters(["cache"]),
-    ...mapActions(["logout"]),
+    ...mapGetters(["cache", "getStatisticData"]),
+    ...mapActions(["logout", "fetchStatisticData"]),
     onCollapse(collapsed, type) {
       console.log(collapsed, type);
     },
@@ -115,6 +124,17 @@ export default {
       await this.logout({ token: this.cache().refreshToken });
       this.$router.push("/login");
     },
+  },
+  created() {
+    this.loading = true;
+    this.fetchStatisticData()
+      .then(() => {
+        this.statisticData = this.getStatisticData();
+        console.log(this.statisticData);
+      })
+      .finally(() => {
+        this.loading = false;
+      });
   },
 };
 </script>

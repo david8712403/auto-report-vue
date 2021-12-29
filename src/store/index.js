@@ -89,6 +89,29 @@ const dailyReport = {
   },
 };
 
+const system = {
+  state: {
+    statisticData: {},
+  },
+  mutations: {
+    setStatisticData(state, data) {
+      state.statisticData = data;
+    },
+  },
+  getters: {
+    getStatisticData: (state) => state.statisticData,
+  },
+
+  actions: {
+    async fetchStatisticData({ commit }) {
+      const res = await axios.get("/api/system/statistic", {
+        headers: user.state.header,
+      });
+      commit("setStatisticData", res.data);
+    },
+  },
+};
+
 export default createStore({
-  modules: { user: user, dailyReport: dailyReport },
+  modules: { user: user, dailyReport: dailyReport, system: system },
 });
