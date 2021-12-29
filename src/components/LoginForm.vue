@@ -1,7 +1,7 @@
 <template>
   <a-spin :spinning="loading">
     <a-card title="Auto Report Login" :bordered="true">
-      <div>
+      <div style="margin-bottom: 10px">
         <a-form :model="formState" @submit="onSubmit">
           <a-form-item>
             <a-input v-model:value="data.account" placeholder="Account">
@@ -22,8 +22,8 @@
             </a-input>
           </a-form-item>
           <div>{{ errorMessage }}</div>
-          <br />
           <a-button
+            style="margin-top: 10px"
             type="primary"
             html-type="submit"
             :disabled="data.account === '' || data.password === '' || loading"
@@ -32,6 +32,7 @@
           </a-button>
         </a-form>
       </div>
+      <a href="/#/signup"> Don't have account </a>
     </a-card>
   </a-spin>
 </template>

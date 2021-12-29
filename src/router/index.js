@@ -2,12 +2,18 @@ import { createRouter, createWebHashHistory } from "vue-router";
 import store from "../store/index";
 import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
+import SignUp from "../views/SignUp.vue";
 
 const routes = [
   {
     path: "/login",
     name: "Login",
     component: Login,
+  },
+  {
+    path: "/signup",
+    name: "SignUp",
+    component: SignUp,
   },
   {
     path: "/",
@@ -69,6 +75,11 @@ router.beforeEach((to, from, next) => {
   const { refreshToken } = store.getters.cache;
   const isLogin = refreshToken !== undefined;
   if (to.path === "/login") {
+    if (isLogin) {
+      next("/dashboard");
+      return;
+    }
+  } else if (to.path === "/signup") {
     if (isLogin) {
       next("/dashboard");
       return;
