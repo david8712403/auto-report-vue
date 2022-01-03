@@ -1,6 +1,7 @@
 <template>
   <a-spin :spinning="states.loading">
-    <a-card title="Auto Report Sign Up" :bordered="true">
+    <a-card :bordered="true">
+      <img src="favicon.ico" />
       <a-form
         ref="formRef"
         name="custom-validation"

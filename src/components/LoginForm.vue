@@ -1,7 +1,8 @@
 <template>
   <a-spin :spinning="loading">
-    <a-card title="Auto Report Login" :bordered="true">
+    <a-card :bordered="true">
       <div style="margin-bottom: 10px">
+        <img src="favicon.ico" />
         <a-form :model="formState" @submit="onSubmit">
           <a-form-item>
             <a-input v-model:value="data.account" placeholder="Account">

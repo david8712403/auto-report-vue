@@ -48,9 +48,7 @@
       </a-menu>
     </a-layout-sider>
     <a-layout>
-      <a-layout-header :style="{ padding: '0px 24px' }">
-        <h1 :style="{ textAlign: 'left', color: '#fff' }">Auto Report</h1>
-      </a-layout-header>
+      <!-- <a-layout-header :style="{ padding: '0px 24px' }"> </a-layout-header> -->
       <a-layout-content :style="{ margin: '12x 12px 0' }">
         <div id="body" :style="{ padding: '24px', background: '#fff' }">
           <router-view />
