@@ -107,7 +107,7 @@ export default {
         key: "content",
         customRender: (data) => {
           if (data.text) return data.text;
-          else return "(未更新)";
+          else return "-";
         },
       },
       {

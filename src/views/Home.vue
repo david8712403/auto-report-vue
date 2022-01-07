@@ -4,7 +4,7 @@
     :style="{ minHeight: '100vh' }"
   >
     <a-layout-sider :collapsed="collapsed" :trigger="null" collapsible>
-      <div :style="{ textAlign: 'right', padding: '20px' }">
+      <!-- <div :style="{ textAlign: 'right', padding: '20px' }">
         <menu-unfold-outlined
           style="color: #fff"
           v-if="collapsed"
@@ -17,6 +17,9 @@
           class="trigger"
           @click="() => (collapsed = !collapsed)"
         />
+      </div> -->
+      <div :style="{ color: '#FFF', textAlign: 'left', padding: '20px' }">
+        {{ userCache.orgName }} - {{ userCache.account }}
       </div>
       <a-menu
         theme="dark"
@@ -79,8 +82,8 @@ import {
   DatabaseOutlined,
   LogoutOutlined,
   SettingOutlined,
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
+  // MenuUnfoldOutlined,
+  // MenuFoldOutlined,
   PullRequestOutlined,
 } from "@ant-design/icons-vue";
 import { mapGetters, mapActions } from "vuex";
@@ -91,18 +94,20 @@ export default {
     DatabaseOutlined,
     LogoutOutlined,
     SettingOutlined,
-    MenuUnfoldOutlined,
-    MenuFoldOutlined,
+    // MenuUnfoldOutlined,
+    // MenuFoldOutlined,
     PullRequestOutlined,
   },
   data() {
     let collapsed = false;
     let loading = true;
     let statisticData = {};
+    let userCache = this.cache();
     return {
       collapsed,
       loading,
       statisticData,
+      userCache,
     };
   },
   methods: {
