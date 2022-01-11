@@ -39,10 +39,10 @@
           <SettingOutlined />
           <span>Setting</span>
         </a-menu-item>
-        <a-menu-item key="change_log">
+        <!-- <a-menu-item key="change_log">
           <PullRequestOutlined />
           <span>Change Log</span>
-        </a-menu-item>
+        </a-menu-item> -->
         <a-divider />
         <a-menu-item @click="onLogoutClicked">
           <LogoutOutlined />
@@ -84,7 +84,7 @@ import {
   SettingOutlined,
   // MenuUnfoldOutlined,
   // MenuFoldOutlined,
-  PullRequestOutlined,
+  // PullRequestOutlined,
 } from "@ant-design/icons-vue";
 import { mapGetters, mapActions } from "vuex";
 export default {
@@ -96,7 +96,7 @@ export default {
     SettingOutlined,
     // MenuUnfoldOutlined,
     // MenuFoldOutlined,
-    PullRequestOutlined,
+    // PullRequestOutlined,
   },
   data() {
     let collapsed = false;
