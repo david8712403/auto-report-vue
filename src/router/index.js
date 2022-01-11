@@ -40,6 +40,12 @@ const routes = [
         exact: true,
       },
       {
+        path: "/debug",
+        name: "debug",
+        component: () => import("../components/Debug.vue"),
+        exact: true,
+      },
+      {
         path: "/change_log",
         name: "change_log",
         component: () => import("../components/SystemLog.vue"),
