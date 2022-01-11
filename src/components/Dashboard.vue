@@ -9,7 +9,7 @@
             :value="isSubmit ? '🎉 Done' : '👨🏻‍💻 Incomplete'"
           >
           </a-statistic>
-          <a-button
+          <!-- <a-button
             v-if="isSubmit"
             @click="
               $router.push({
@@ -21,7 +21,7 @@
               })
             "
             ><EditOutlined />Edit</a-button
-          >
+          > -->
           <a-button
             v-if="!isSubmit"
             type="primary"
@@ -88,7 +88,7 @@ import moment from "moment";
 import SlackMessageDialog from "../components/SlackMessageDialog.vue";
 import {
   SendOutlined,
-  EditOutlined,
+  // EditOutlined,
   SlackOutlined,
 } from "@ant-design/icons-vue";
 
@@ -165,7 +165,7 @@ export default {
   },
   components: {
     SendOutlined,
-    EditOutlined,
+    // EditOutlined,
     SlackOutlined,
     SlackMessageDialog,
   },
