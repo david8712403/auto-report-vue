@@ -9,7 +9,7 @@
             :value="isSubmit ? '🎉 Done' : '👨🏻‍💻 Incomplete'"
           >
           </a-statistic>
-          <!-- <a-button
+          <a-button
             v-if="isSubmit"
             @click="
               $router.push({
@@ -21,7 +21,7 @@
               })
             "
             ><EditOutlined />Edit</a-button
-          > -->
+          >
           <a-button
             v-if="!isSubmit"
             type="primary"
@@ -42,9 +42,9 @@
               <span>/ {{ memberCount }}</span>
             </template>
           </a-statistic>
-          <a-button type="primary" @click="() => (showSlackDialog = true)"
+          <!-- <a-button type="primary" @click="() => (showSlackDialog = true)"
             ><SlackOutlined />Notify members</a-button
-          >
+          > -->
         </a-col>
         <a-col :span="8">
           <a-statistic-countdown
@@ -88,8 +88,8 @@ import moment from "moment";
 import SlackMessageDialog from "../components/SlackMessageDialog.vue";
 import {
   SendOutlined,
-  // EditOutlined,
-  SlackOutlined,
+  EditOutlined,
+  // SlackOutlined,
 } from "@ant-design/icons-vue";
 
 export default {
@@ -165,8 +165,8 @@ export default {
   },
   components: {
     SendOutlined,
-    // EditOutlined,
-    SlackOutlined,
+    EditOutlined,
+    // SlackOutlined,
     SlackMessageDialog,
   },
   methods: {
