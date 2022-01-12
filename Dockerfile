@@ -3,6 +3,7 @@ WORKDIR /app
 COPY package*.json /app
 RUN npm install
 COPY ./ .
+RUN npm run lint
 RUN npm run build
 
 FROM nginx:latest as production-stage
