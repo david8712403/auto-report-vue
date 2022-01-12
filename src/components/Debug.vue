@@ -12,7 +12,7 @@
     :columns="columns"
     :data-source="data"
     :pagination="{ pageSize: 1000 }"
-    :rowKey="(record) => record.id"
+    :rowKey="(record) => record.__key__"
     size="small"
   >
   </a-table>
@@ -28,7 +28,7 @@ export default {
     let columns = [];
     let data = [];
     return {
-      sql: "",
+      sql: "SELECT * FROM ",
       columns,
       data,
       loading,
@@ -58,6 +58,7 @@ export default {
               });
             }
           }
+          res.data.forEach((e, i) => (e.__key__ = i));
           this.data = res.data;
         })
         .finally(() => (this.loading = false));
