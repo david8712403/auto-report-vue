@@ -3,7 +3,7 @@
   <a-textarea
     v-model:value="sql"
     placeholder="SELECT * FROM ..."
-    :auto-size="{ minRows: 3, maxRows: 5 }"
+    :auto-size="{ minRows: 3 }"
   />
   <a-button @click="() => query()">QUERY!!!</a-button>
   <p>count: {{ this.data.length }}</p>
