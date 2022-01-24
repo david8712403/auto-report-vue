@@ -1,11 +1,12 @@
 <template>
   <h2>Dashboard</h2>
+
   <a-spin :spinning="loading">
-    <a-card>
-      <a-row :gutter="8">
-        <a-col :span="8">
+    <a-row :gutter="[8, 8]">
+      <a-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8">
+        <a-card>
           <a-statistic
-            title="Your Submit Status"
+            title="Submit Status"
             :value="isSubmit ? '🎉 Done' : '👨🏻‍💻 Incomplete'"
           >
           </a-statistic>
@@ -35,8 +36,10 @@
             "
             ><SendOutlined />Submit Now</a-button
           >
-        </a-col>
-        <a-col :span="8">
+        </a-card>
+      </a-col>
+      <a-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8">
+        <a-card>
           <a-statistic title="Submit Progress" :value="submitCount">
             <template #suffix>
               <span>/ {{ memberCount }}</span>
@@ -45,17 +48,20 @@
           <!-- <a-button type="primary" @click="() => (showSlackDialog = true)"
             ><SlackOutlined />Notify members</a-button
           > -->
-        </a-col>
-        <a-col :span="8">
+        </a-card>
+      </a-col>
+      <a-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8">
+        <a-card>
           <a-statistic-countdown
-            title="Deadline for today's report"
+            title="Deadline"
             :value="deadline"
             style="margin-right: 50px"
           />
-        </a-col>
-      </a-row>
-    </a-card>
+        </a-card>
+      </a-col>
+    </a-row>
   </a-spin>
+
   <br />
   <SlackMessageDialog
     :visible="showSlackDialog"
