@@ -10,5 +10,5 @@ FROM nginx:latest as production-stage
 RUN mkdir /app
 COPY --from=build-stage /app/dist /app
 COPY nginx.conf /etc/nginx/nginx.conf
-COPY ssl.csr /etc/nginx/ssl.csr
+COPY ssl.pem /etc/nginx/ssl.pem
 COPY ssl.key /etc/nginx/ssl.key
