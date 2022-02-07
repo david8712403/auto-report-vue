@@ -9,6 +9,12 @@
 - 設定提醒成員更新進度
 - 設定每日寄送進度報表排程
 
+## Docker
+run
+```shell
+docker run -d -p 2000:80 auto-report-vue
+```
+
 ## Project setup
 ```
 npm install
